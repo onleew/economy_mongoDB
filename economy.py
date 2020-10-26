@@ -62,14 +62,14 @@ class econ(commands.Cog):
 	@commands.cooldown(1, 10800, commands.BucketType.member)
 	async def cas(self, ctx, amount:int = None):
 		if not amount:
-			await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите вашу ставку...```\n`[число]` - поставить определённую сумму денег, ставка не может быть меньше 100', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+			await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите вашу ставку...```\n`[число]` - поставить определённую сумму денег, ставка не может быть меньше 100', color = discord.Color.red()), delete_after = 15)
 			self.cas.reset_cooldown(ctx)
 		else:
 			if int(amount) > database.find_cash(ctx.guild.id, ctx.author.id):
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите ставку правильно...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите ставку правильно...```', color = discord.Color.red()), delete_after = 15)
 				self.cas.reset_cooldown(ctx)
 			elif int(amount) < 100:
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите ставку выше чем 100...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите ставку выше чем 100...```', color = discord.Color.red()), delete_after = 15)
 				self.cas.reset_cooldown(ctx)
 			else:
 				num = random.randint(1, 2)
@@ -89,14 +89,14 @@ class econ(commands.Cog):
 	@commands.has_permissions(administrator = True)
 	async def __add_cash(self, ctx, user: discord.Member = None, amount:int = None):
 		if not user:
-			await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите участника которому хотите добавить монеты...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+			await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите участника которому хотите добавить монеты...```', color = discord.Color.red()), delete_after = 15)
 		else:
 			if not amount:
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число желаемых монет...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число желаемых монет...```', color = discord.Color.red()), delete_after = 15)
 			elif amount < 10:
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число большее 10...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число большее 10...```', color = discord.Color.red()), delete_after = 15)
 			elif amount > 100000000:
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число меньше 100000000...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число меньше 100000000...```', color = discord.Color.red()), delete_after = 15)
 			else:
 				try:
 					self.coll.update_one({"guild_id" : ctx.guild.id, "user_id" : user.id}, {"$inc" : {"cash" : amount}})
@@ -108,12 +108,12 @@ class econ(commands.Cog):
 	@commands.has_permissions(administrator = True)
 	async def __remove_cash(self, ctx, user: discord.Member = None, amount:int = None):
 		if not user:
-			await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите участника у которого хотите отнять монеты...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+			await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите участника у которого хотите отнять монеты...```', color = discord.Color.red()), delete_after = 15)
 		else:
 			if not amount:
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число удаляемых монет...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число удаляемых монет...```', color = discord.Color.red()), delete_after = 15)
 			elif amount > database.find_cash(ctx.guild.id, user.id):
-				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число большее 10...```', color = discord.Color.red()).set_footer(text = f'Связь с разработчиком - {database.find_prefix(ctx.guild.id)}разработчик'), delete_after = 15)
+				await ctx.send(embed = discord.Embed(title = 'Ошибка', description = f'```Укажите число большее 10...```', color = discord.Color.red()), delete_after = 15)
 			else:
 				try:
 					self.coll.update_one({"guild_id" : ctx.guild.id, "user_id" : user.id}, {"$inc" : {"cash" : -amount}})
